@@ -7,6 +7,18 @@
     <body>
         <script>
             
+            function formatForecast(forecastStr) {
+                let lines = forecastStr.split(". ");
+                let output = "";
+                for (i=0; i<lines.length; i++) {
+                    output = output + lines[i];
+                    if (i+1 < lines.length) {
+                        output = output + ".<br>";
+                    }
+                }
+                return output;
+            }
+
             async function getWeatherGovForecast() {
                 let weatherGovData = await fetch("https://api.weather.gov/gridpoints/PBZ/78,66/forecast");
         
@@ -16,7 +28,7 @@
                     let forecast0 = response.properties.periods[0].detailedForecast;
                     console.log("Temp is " + temp0 + " degrees Fahrenheit");
                     document.getElementById("weatherGovTemp").textContent = "Temp is " + temp0 + " degrees Fahrenheit.";
-                    document.getElementById("weatherGovForecast").textContent = forecast0;
+                    document.getElementById("weatherGovForecast").innerHTML = formatForecast(forecast0);
                     document.getElementById("forecastImg").src = response.properties.periods[0].icon;
                 }
             }
@@ -32,6 +44,7 @@
         </script>
 
         <img id="forecastImg" alt="forecast thumbnail">
+        <br>
         <div id="weatherGovTemp"></div>
         <br>
         <div id="weatherGovForecast"></div>
