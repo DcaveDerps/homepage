@@ -17,6 +17,7 @@
                     console.log("Temp is " + temp0 + " degrees Fahrenheit");
                     document.getElementById("weatherGovTemp").textContent = "Temp is " + temp0 + " degrees Fahrenheit.";
                     document.getElementById("weatherGovForecast").textContent = forecast0;
+                    document.getElementById("forecastImg").src = response.properties.periods[0].icon;
                 }
             }
 
@@ -30,6 +31,7 @@
 
         </script>
 
+        <img id="forecastImg" alt="forecast thumbnail">
         <div id="weatherGovTemp"></div>
         <br>
         <div id="weatherGovForecast"></div>
