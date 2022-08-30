@@ -13,7 +13,10 @@
                 if (weatherGovData.ok) {
                     let response = await weatherGovData.json()
                     let temp0 = response.properties.periods[0].temperature;
+                    let forecast0 = response.properties.periods[0].detailedForecast;
                     console.log("Temp is " + temp0 + " degrees Fahrenheit");
+                    document.getElementById("weatherGovTemp").textContent = "Temp is " + temp0 + " degrees Fahrenheit.";
+                    document.getElementById("weatherGovForecast").textContent = forecast0;
                 }
             }
 
@@ -26,5 +29,10 @@
             console.log("after call to getWeatherForecasts...");
 
         </script>
+
+        <div id="weatherGovTemp"></div>
+        <br>
+        <div id="weatherGovForecast"></div>
+
     </body>
 </html>
