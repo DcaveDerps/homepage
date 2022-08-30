@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Custom Homepage</title>
+        <h1>Custom Homepage</h1>
+    </head>
+    <body>
+        <script>
+            
+            async function getWeatherGovForecast() {
+                let weatherGovData = await fetch("https://api.weather.gov/gridpoints/PBZ/78,66/forecast");
+        
+                if (weatherGovData.ok) {
+                    let response = await weatherGovData.json()
+                    let temp0 = response.properties.periods[0].temperature;
+                    console.log("Temp is " + temp0 + " degrees Fahrenheit");
+                }
+            }
+
+            async function getWeatherForecasts() {
+                getWeatherGovForecast();
+            }
+
+            console.log("before call to getWeatherForecasts...");
+            getWeatherForecasts();
+            console.log("after call to getWeatherForecasts...");
+
+        </script>
+    </body>
+</html>
