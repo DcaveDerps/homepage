@@ -5,6 +5,7 @@
         <h1>Custom Homepage</h1>
     </head>
     <body>
+        <script src="refreshOAUTH.js"></script>
         <script>
             
             function formatForecast(forecastStr) {
@@ -41,6 +42,20 @@
             getWeatherForecasts();
             console.log("after call to getWeatherForecasts...");
 
+            // TWITCH
+            
+            // check if the necesary js file exists
+            async function getOAUTHToken() {
+                if (typeof refreshOAUTH === "function") {
+                    let token = await refreshOAUTH();
+                    console.log("customHomePage thinks token is: " + token);
+                }
+                else {
+                    console.log("necessary .js file missing");
+                }
+            }
+            getOAUTHToken();
+
         </script>
 
         <img id="forecastImg" alt="forecast thumbnail">
@@ -48,6 +63,9 @@
         <div id="weatherGovTemp"></div>
         <br>
         <div id="weatherGovForecast"></div>
+
+        <br><br><br>
+        <div id="twitchLiveStatus0"></div>
 
     </body>
 </html>
