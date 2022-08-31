@@ -6,6 +6,7 @@
     </head>
     <body>
         <script src="refreshOAUTH.js"></script>
+        <script src="twitchHandlers.js"></script>
         <script>
             
             function formatForecast(forecastStr) {
@@ -49,6 +50,9 @@
                 if (typeof refreshOAUTH === "function") {
                     let token = await refreshOAUTH();
                     console.log("customHomePage thinks token is: " + token);
+                    let clientID = await getClientID();
+                    let broadcasterID = await getBroadcasterID("dcavederps", token, clientID);
+                    console.log("my id is: " + broadcasterID);
                 }
                 else {
                     console.log("necessary .js file missing");
