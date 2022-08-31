@@ -51,8 +51,9 @@
                     let token = await refreshOAUTH();
                     console.log("customHomePage thinks token is: " + token);
                     let clientID = await getClientID();
-                    let broadcasterID = await getBroadcasterID("dcavederps", token, clientID);
-                    console.log("my id is: " + broadcasterID);
+                    let broadcasterID = await getBroadcasterID("jabroni_mike", token, clientID);
+                    console.log("id is: " + broadcasterID);
+                    await getChannelLiveStatuses(token, clientID);
                 }
                 else {
                     console.log("necessary .js file missing");
@@ -69,7 +70,11 @@
         <div id="weatherGovForecast"></div>
 
         <br><br><br>
-        <div id="twitchLiveStatus0"></div>
+        <div id="twitchLiveStatus0">?</div>
+        <br>
+        <div id="twitchLiveStatus1">?</div>
+        <br>
+        <div id="twitchLiveStatus2">?</div>
 
     </body>
 </html>
