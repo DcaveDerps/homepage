@@ -1,0 +1,4 @@
+#twitchLivePane {
+    display: flex;
+    justify-content: right;
+}
