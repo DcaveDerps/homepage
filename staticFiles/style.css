@@ -1,4 +1,28 @@
 #twitchLivePane {
     display: flex;
-    justify-content: right;
+    width: 10%;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+#leftPane {
+    display: flex;
+    width: 10%;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+#centerPane {
+    display: flex;
+    width: 80%;
+}
+
+.twitchChannelBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.horizontalList {
+    display: flex;
+    flex-direction: row;
 }
