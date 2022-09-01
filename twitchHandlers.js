@@ -20,17 +20,37 @@ async function getBroadcasterID(loginName, token, clientID) {
 twitchChannels = [
     {
         broadcaster_id: 79698024,
-        element_id: "twitchLiveStatus0"
+        login: "jabroni_mike",
+        element_id: "twitchLiveStatus0",
+        profilePic: "staticFiles\\jabroni_mikeChannelProfile.png"
     },
     {
         broadcaster_id: 28219022,
-        element_id: "twitchLiveStatus1"
+        login: "vargskelethor",
+        element_id: "twitchLiveStatus1",
+        profilePic: "staticFiles\\vargskelethorChannelProfile.png"
     },
     {
         broadcaster_id: 25725272,
-        element_id: "twitchLiveStatus2"
+        login: "vinesauce",
+        element_id: "twitchLiveStatus2",
+        profilePic: "staticFiles\\vinesauceChannelProfile.png"
     }
 ];
+
+function initTwitchPane() {
+    let twitchPane = document.getElementById("twitchLivePane");
+
+    for (i=0;i<twitchChannels.length; i++) {
+        let channel = twitchChannels[i];
+        twitchPane.innerHTML = twitchPane.innerHTML +
+        "<div class=\"twitchChannelBox\" id=\"twitchChannel" + i + "\">" +
+        "<a href=https://www.twitch.tv/" + channel.login + " ><img class=\"twitchIcon\" src=" + channel.profilePic + " ></a>" +
+        "<div id=twitchLiveStatus" + i + ">Checking...</div>" +
+        "</div>";
+    }
+
+}
 
 async function getChannelLiveStatuses(token, clientID) {
     for(i=0; i<twitchChannels.length; i++) {

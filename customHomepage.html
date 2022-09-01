@@ -6,6 +6,32 @@
         <h1>Custom Homepage</h1>
     </head>
     <body>
+        
+        <div class="horizontalList">
+            <div id="leftPane">empty</div>
+
+            <div id="centerPane">
+
+                <img id="forecastImg" alt="forecast thumbnail">
+                <br>
+                <div id="weatherGovTemp"></div>
+                <br>
+                <div id="weatherGovForecast"></div>
+
+            </div>
+
+            <!--<br><br><br>-->
+            <div id="twitchLivePane">
+                <!--
+                <div id="twitchLiveStatus0" class="twitchChannelBox">?</div>
+                <br>
+                <div id="twitchLiveStatus1" class="twitchChannelBox">?</div>
+                <br>
+                <div id="twitchLiveStatus2" class="twitchChannelBox">?</div>
+                -->
+            </div>
+        </div>
+        
         <script src="refreshOAUTH.js"></script>
         <script src="twitchHandlers.js"></script>
         <script>
@@ -46,6 +72,8 @@
 
             // TWITCH
             
+            initTwitchPane();
+
             // check if the necesary js file exists
             async function getOAUTHToken() {
                 if (typeof refreshOAUTH === "function") {
@@ -63,6 +91,7 @@
             getOAUTHToken();
 
         </script>
+        <!--
         <div class="horizontalList">
             <div id="leftPane">empty</div>
 
@@ -76,7 +105,6 @@
 
             </div>
 
-            <!--<br><br><br>-->
             <div id="twitchLivePane">
                 <div id="twitchLiveStatus0" class="twitchChannelBox">?</div>
                 <br>
@@ -85,6 +113,7 @@
                 <div id="twitchLiveStatus2" class="twitchChannelBox">?</div>
             </div>
         </div>
+        -->
 
     </body>
 </html>
