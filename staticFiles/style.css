@@ -17,6 +17,13 @@
     width: 80%;
 }
 
+#searchPane {
+    display: flex;
+    height: 40%;
+    justify-content: center;
+    align-items: center;
+}
+
 .twitchChannelBox {
     position: relative;
     display: flex;
