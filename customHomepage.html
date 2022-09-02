@@ -84,8 +84,8 @@
                     let clientID = await getClientID();
                     await getChannelLiveStatuses(token, clientID);
 
-                    //let broadcasterID = await getBroadcasterID("limealicious", token, clientID);
-                    //console.log("id is: " + broadcasterID);
+                    let broadcasterID = await getBroadcasterID("revscarecrow", token, clientID);
+                    console.log("id is: " + broadcasterID);
                 }
                 else {
                     console.log("necessary .js file missing");

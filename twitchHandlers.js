@@ -36,6 +36,14 @@ twitchChannels = [
     {
         login: "limealicious",
         profilePic: "staticFiles\\limealiciousChannelProfile.png"
+    },
+    {
+        login: "hackerling",
+        profilePic: "staticFiles\\hackerlingChannelProfile.png"
+    },
+    {
+        login: "revscarecrow",
+        profilePic: "staticFiles\\revscarecrowChannelProfile.png"
     }
 ];
 
@@ -77,27 +85,27 @@ async function getChannelLiveStatuses(token, clientID) {
     if (response.ok) {
         responseJSON = await response.json();
 
-        if (typeof responseJSON.data[0] === 'undefined') {
-            // all offline
-            for (i = 0; i < twitchChannels.length; i++) {
-                    document.getElementById("twitchLiveStatus_" + twitchChannels[i].login).src = "staticFiles\\offlineIcon.png";
-            }
+        // assume all are offline
+        for (i = 0; i < twitchChannels.length; i++) {
+                document.getElementById("twitchLiveStatus_" + twitchChannels[i].login).src = "staticFiles\\offlineIcon.png";
         }
-        else {
-            // at least one is online
-            // streams are returned sorted by viewcount, can't rely on consistent order
-            for (i = 0; i < responseJSON.data.length; i++){
-                for (j = 0; j < twitchChannels.length; j++) {
-                    if (responseJSON.data[i].user_login == twitchChannels[j].login) {
-                        document.getElementById("twitchLiveStatus_" + twitchChannels[j].login).src = "staticFiles\\liveIcon.png";
-                    }
-                    else {
-                        document.getElementById("twitchLiveStatus_" + twitchChannels[j].login).src = "staticFiles\\offlineIcon.png";
-                    }
+
+
+        // check each result in the data array
+        // if response.data is empty, no one is online, and they're already marked as such
+
+        // if response.data is not empty, check each result and mark each channel live accordingly
+
+        // streams are returned sorted by viewcount, can't rely on consistent order
+        for (i = 0; i < responseJSON.data.length; i++){
+            for (j = 0; j < twitchChannels.length; j++) {
+                if (responseJSON.data[i].user_login === twitchChannels[j].login) {
+                    document.getElementById("twitchLiveStatus_" + twitchChannels[j].login).src = "staticFiles\\liveIcon.png";
                     break;
                 }
             }
         }
+
 
     }
 
