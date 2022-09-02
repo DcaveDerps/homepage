@@ -21,19 +21,16 @@ twitchChannels = [
     {
         broadcaster_id: 79698024,
         login: "jabroni_mike",
-        element_id: "twitchLiveStatus0",
         profilePic: "staticFiles\\jabroni_mikeChannelProfile.png"
     },
     {
         broadcaster_id: 28219022,
         login: "vargskelethor",
-        element_id: "twitchLiveStatus1",
         profilePic: "staticFiles\\vargskelethorChannelProfile.png"
     },
     {
         broadcaster_id: 25725272,
         login: "vinesauce",
-        element_id: "twitchLiveStatus2",
         profilePic: "staticFiles\\vinesauceChannelProfile.png"
     }
 ];
@@ -48,7 +45,6 @@ function initTwitchPane() {
         "<a href=https://www.twitch.tv/" + channel.login + " class=\"imageLink\"><img class=\"twitchIcon\" src=" + channel.profilePic + " >" + 
         "<img src=\"staticFiles\\checkingIcon.png\" class=liveIndicator id=twitchLiveStatus" + i + ">" +
         "</a>" +
-        //"<div id=twitchLiveStatus" + i + ">Checking...</div>" +
         "</div>";
     }
 
@@ -56,7 +52,7 @@ function initTwitchPane() {
 
 async function getChannelLiveStatuses(token, clientID) {
     for(i=0; i<twitchChannels.length; i++) {
-        let response = await fetch("https://api.twitch.tv/helix/streams?user_id=" + twitchChannels[i].broadcaster_id, {
+        let response = await fetch("https://api.twitch.tv/helix/streams?user_login=" + twitchChannels[i].login, {
             headers: {
                 "Authorization": "Bearer " + token,
                 "Client-Id": clientID
@@ -67,11 +63,9 @@ async function getChannelLiveStatuses(token, clientID) {
         if (response.ok) {
             responseJSON = await response.json();
             if ( typeof responseJSON.data[0] !== 'undefined') {
-                //document.getElementById(twitchChannels[i].element_id).innerHTML = "<strong>channel is live!</strong>";
                 document.getElementById("twitchLiveStatus" + i).src = "staticFiles\\liveIcon.png";
             }
             else {
-                //document.getElementById(twitchChannels[i].element_id).innerHTML = "channel is offline.";
                 document.getElementById("twitchLiveStatus" + i).src = "staticFiles\\offlineIcon.png";
             }
         }
