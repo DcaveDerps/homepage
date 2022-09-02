@@ -30,6 +30,11 @@
     flex-direction: row;
 }
 
+.verticalList {
+    display: flex;
+    flex-direction: column;
+}
+
 .twitchIcon {
     width: 60px;
     height: 60px;

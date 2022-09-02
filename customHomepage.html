@@ -6,25 +6,36 @@
         <h1>Custom Homepage</h1>
     </head>
     <body>
-        
+        <script src="refreshOAUTH.js"></script>
+        <script src="twitchHandlers.js"></script>
+        <script src="search.js"></script>
+
         <div class="horizontalList">
             <div id="leftPane">empty</div>
 
-            <div id="centerPane">
 
-                <img id="forecastImg" alt="forecast thumbnail">
-                <br>
-                <div id="weatherGovTemp"></div>
-                <br>
-                <div id="weatherGovForecast"></div>
+
+            <div id="centerPane" class="verticalList">
+
+                <div id="searchPane">
+                    <form onsubmit="search(); return false;">
+                        <input type="search" placeholder="Search DuckDuckGo..." required size="80" id="searchBar" autocomplete="off">
+                    </form>
+                </div>
+
+                <div id="weatherPane">
+                    <img id="forecastImg" alt="forecast thumbnail">
+                    <br>
+                    <div id="weatherGovTemp"></div>
+                    <br>
+                    <div id="weatherGovForecast"></div>
+                </div>
 
             </div>
 
             <div id="twitchLivePane"></div>
         </div>
         
-        <script src="refreshOAUTH.js"></script>
-        <script src="twitchHandlers.js"></script>
         <script>
             
             function formatForecast(forecastStr) {

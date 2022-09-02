@@ -54,6 +54,7 @@ function initTwitchPane() {
 
 }
 
+// TODO batch all the usernames into one API call instead of doing a request for each one
 async function getChannelLiveStatuses(token, clientID) {
     for(i=0; i<twitchChannels.length; i++) {
         let response = await fetch("https://api.twitch.tv/helix/streams?user_login=" + twitchChannels[i].login, {
