@@ -54,9 +54,41 @@ function initTwitchPane() {
 
 }
 
-// TODO batch all the usernames into one API call instead of doing a request for each one
 async function getChannelLiveStatuses(token, clientID) {
-    for(i=0; i<twitchChannels.length; i++) {
+    let requestURL = "https://api.twitch.tv/helix/streams?";
+
+    for (i = 0; i < twitchChannels.length; i++) {
+        requestURL = requestURL + "user_login=" + twitchChannels[i].login;
+        if (i + 1 !== twitchChannels.length) {
+            requestURL = requestURL + "&";
+        }
+    }
+
+    //console.log(requestURL);
+
+    let response = await fetch(requestURL, {
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Client-Id": clientID
+            },
+            method: "GET"
+        });
+    
+    if (response.ok) {
+        responseJSON = await response.json();
+
+        for (i = 0; i < twitchChannels.length; i++) {
+            if (typeof responseJSON.data[i] !== 'undefined') {
+                document.getElementById("twitchLiveStatus" + i).src = "staticFiles\\liveIcon.png";
+            }
+            else {
+                document.getElementById("twitchLiveStatus" + i).src = "staticFiles\\offlineIcon.png";
+            }
+        }
+
+    }
+
+    /*for(i=0; i<twitchChannels.length; i++) {
         let response = await fetch("https://api.twitch.tv/helix/streams?user_login=" + twitchChannels[i].login, {
             headers: {
                 "Authorization": "Bearer " + token,
@@ -75,4 +107,5 @@ async function getChannelLiveStatuses(token, clientID) {
             }
         }
     }
+    */
 }
