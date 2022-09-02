@@ -47,7 +47,7 @@ function initTwitchPane() {
         twitchPane.innerHTML = twitchPane.innerHTML +
         "<div class=\"twitchChannelBox\" id=\"twitchChannel" + i + "\">" +
         "<a href=https://www.twitch.tv/" + channel.login + " class=\"imageLink\"><img class=\"twitchIcon\" src=" + channel.profilePic + " >" + 
-        "<img src=\"staticFiles\\checkingIcon.png\" class=liveIndicator id=twitchLiveStatus" + i + ">" +
+        "<img src=\"staticFiles\\checkingIcon.png\" class=liveIndicator id=twitchLiveStatus_" + channel.login + ">" +
         "</a>" +
         "</div>";
     }
@@ -77,12 +77,25 @@ async function getChannelLiveStatuses(token, clientID) {
     if (response.ok) {
         responseJSON = await response.json();
 
-        for (i = 0; i < twitchChannels.length; i++) {
-            if (typeof responseJSON.data[i] !== 'undefined') {
-                document.getElementById("twitchLiveStatus" + i).src = "staticFiles\\liveIcon.png";
+        if (typeof responseJSON.data[0] === 'undefined') {
+            // all offline
+            for (i = 0; i < twitchChannels.length; i++) {
+                    document.getElementById("twitchLiveStatus_" + twitchChannels[i].login).src = "staticFiles\\offlineIcon.png";
             }
-            else {
-                document.getElementById("twitchLiveStatus" + i).src = "staticFiles\\offlineIcon.png";
+        }
+        else {
+            // at least one is online
+            // streams are returned sorted by viewcount, can't rely on consistent order
+            for (i = 0; i < responseJSON.data.length; i++){
+                for (j = 0; j < twitchChannels.length; j++) {
+                    if (responseJSON.data[i].user_login == twitchChannels[j].login) {
+                        document.getElementById("twitchLiveStatus_" + twitchChannels[j].login).src = "staticFiles\\liveIcon.png";
+                    }
+                    else {
+                        document.getElementById("twitchLiveStatus_" + twitchChannels[j].login).src = "staticFiles\\offlineIcon.png";
+                    }
+                    break;
+                }
             }
         }
 
