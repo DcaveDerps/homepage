@@ -45,7 +45,7 @@ function initTwitchPane() {
         let channel = twitchChannels[i];
         twitchPane.innerHTML = twitchPane.innerHTML +
         "<div class=\"twitchChannelBox\" id=\"twitchChannel" + i + "\">" +
-        "<a href=https://www.twitch.tv/" + channel.login + " ><img class=\"twitchIcon\" src=" + channel.profilePic + " ></a>" +
+        "<a href=https://www.twitch.tv/" + channel.login + " class=\"imageLink\"><img class=\"twitchIcon\" src=" + channel.profilePic + " ></a>" +
         "<div id=twitchLiveStatus" + i + ">Checking...</div>" +
         "</div>";
     }
