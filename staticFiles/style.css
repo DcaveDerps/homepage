@@ -33,6 +33,7 @@
 .twitchIcon {
     width: 60px;
     height: 60px;
+    border: 2px solid lightslategray;
 }
 
 .imageLink {
@@ -44,6 +45,6 @@
     position: absolute;
     top: 45px;
     left: 45px;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
 }

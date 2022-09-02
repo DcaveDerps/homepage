@@ -20,16 +20,7 @@
 
             </div>
 
-            <!--<br><br><br>-->
-            <div id="twitchLivePane">
-                <!--
-                <div id="twitchLiveStatus0" class="twitchChannelBox">?</div>
-                <br>
-                <div id="twitchLiveStatus1" class="twitchChannelBox">?</div>
-                <br>
-                <div id="twitchLiveStatus2" class="twitchChannelBox">?</div>
-                -->
-            </div>
+            <div id="twitchLivePane"></div>
         </div>
         
         <script src="refreshOAUTH.js"></script>
@@ -74,15 +65,15 @@
             
             initTwitchPane();
 
-            // check if the necesary js file exists
             async function getOAUTHToken() {
+                // check if the necesary js file exists
                 if (typeof refreshOAUTH === "function") {
                     let token = await refreshOAUTH();
-                    console.log("customHomePage thinks token is: " + token);
                     let clientID = await getClientID();
-                    let broadcasterID = await getBroadcasterID("jabroni_mike", token, clientID);
-                    console.log("id is: " + broadcasterID);
                     await getChannelLiveStatuses(token, clientID);
+
+                    //let broadcasterID = await getBroadcasterID("limealicious", token, clientID);
+                    //console.log("id is: " + broadcasterID);
                 }
                 else {
                     console.log("necessary .js file missing");
@@ -91,29 +82,5 @@
             getOAUTHToken();
 
         </script>
-        <!--
-        <div class="horizontalList">
-            <div id="leftPane">empty</div>
-
-            <div id="centerPane">
-
-                <img id="forecastImg" alt="forecast thumbnail">
-                <br>
-                <div id="weatherGovTemp"></div>
-                <br>
-                <div id="weatherGovForecast"></div>
-
-            </div>
-
-            <div id="twitchLivePane">
-                <div id="twitchLiveStatus0" class="twitchChannelBox">?</div>
-                <br>
-                <div id="twitchLiveStatus1" class="twitchChannelBox">?</div>
-                <br>
-                <div id="twitchLiveStatus2" class="twitchChannelBox">?</div>
-            </div>
-        </div>
-        -->
-
     </body>
 </html>
