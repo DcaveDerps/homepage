@@ -45,8 +45,10 @@ function initTwitchPane() {
         let channel = twitchChannels[i];
         twitchPane.innerHTML = twitchPane.innerHTML +
         "<div class=\"twitchChannelBox\" id=\"twitchChannel" + i + "\">" +
-        "<a href=https://www.twitch.tv/" + channel.login + " class=\"imageLink\"><img class=\"twitchIcon\" src=" + channel.profilePic + " ></a>" +
-        "<div id=twitchLiveStatus" + i + ">Checking...</div>" +
+        "<a href=https://www.twitch.tv/" + channel.login + " class=\"imageLink\"><img class=\"twitchIcon\" src=" + channel.profilePic + " >" + 
+        "<img src=\"staticFiles\\checkingIcon.png\" class=liveIndicator id=twitchLiveStatus" + i + ">" +
+        "</a>" +
+        //"<div id=twitchLiveStatus" + i + ">Checking...</div>" +
         "</div>";
     }
 
@@ -65,10 +67,12 @@ async function getChannelLiveStatuses(token, clientID) {
         if (response.ok) {
             responseJSON = await response.json();
             if ( typeof responseJSON.data[0] !== 'undefined') {
-                document.getElementById(twitchChannels[i].element_id).innerHTML = "<strong>channel is live!</strong>";
+                //document.getElementById(twitchChannels[i].element_id).innerHTML = "<strong>channel is live!</strong>";
+                document.getElementById("twitchLiveStatus" + i).src = "staticFiles\\liveIcon.png";
             }
             else {
-                document.getElementById(twitchChannels[i].element_id).innerHTML = "channel is offline.";
+                //document.getElementById(twitchChannels[i].element_id).innerHTML = "channel is offline.";
+                document.getElementById("twitchLiveStatus" + i).src = "staticFiles\\offlineIcon.png";
             }
         }
     }

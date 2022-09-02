@@ -18,9 +18,11 @@
 }
 
 .twitchChannelBox {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    padding-bottom: 5px;
 }
 
 .horizontalList {
@@ -36,4 +38,12 @@
 .imageLink {
     width: fit-content;
     height: fit-content;
+}
+
+.liveIndicator {
+    position: absolute;
+    top: 45px;
+    left: 45px;
+    width: 18px;
+    height: 18px;
 }
