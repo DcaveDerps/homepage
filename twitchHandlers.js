@@ -23,9 +23,21 @@ async function getBroadcasterID(loginName, token, clientID) {
 
 twitchChannels = [
     {
+        login: "hackerling",
+        profilePic: "staticFiles\\hackerlingChannelProfile.png"
+    },
+    {
         broadcasterId: 79698024,
         login: "jabroni_mike",
         profilePic: "staticFiles\\jabroni_mikeChannelProfile.png"
+    },
+    {
+        login: "limealicious",
+        profilePic: "staticFiles\\limealiciousChannelProfile.png"
+    },
+    {
+        login: "revscarecrow",
+        profilePic: "staticFiles\\revscarecrowChannelProfile.png"
     },
     {
         broadcasterId: 28219022,
@@ -36,18 +48,6 @@ twitchChannels = [
         broadcasterId: 25725272,
         login: "vinesauce",
         profilePic: "staticFiles\\vinesauceChannelProfile.png"
-    },
-    {
-        login: "limealicious",
-        profilePic: "staticFiles\\limealiciousChannelProfile.png"
-    },
-    {
-        login: "hackerling",
-        profilePic: "staticFiles\\hackerlingChannelProfile.png"
-    },
-    {
-        login: "revscarecrow",
-        profilePic: "staticFiles\\revscarecrowChannelProfile.png"
     }
 ];
 
