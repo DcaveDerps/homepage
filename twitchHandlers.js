@@ -93,6 +93,8 @@ async function refreshChannelLiveStatuses() {
 async function initTwitchPane() {
     let twitchPane = document.getElementById("twitchLivePane");
 
+    twitchPane.innerHTML = "";
+
     // init the channel boxes so there's no pop-in upon the Twitch API response
     for (i=0;i<twitchChannels.length; i++) {
         let channel = twitchChannels[i];
