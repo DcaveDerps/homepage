@@ -1,3 +1,7 @@
+const LIVE_IMG_PATH = "staticFiles\\liveIcon.png";
+const OFFLINE_IMG_PATH = "staticFiles\\offlineIcon.png";
+const CHECKING_IMG_PATH = "staticFiles\\checkingIcon.png";
+
 async function getBroadcasterID(loginName, token, clientID) {
     let requestURL = "https://api.twitch.tv/helix/users?login=" + loginName;
     let response = await fetch(requestURL, {
@@ -47,14 +51,37 @@ twitchChannels = [
     }
 ];
 
-function initTwitchPane() {
+async function initTwitchPane() {
     let twitchPane = document.getElementById("twitchLivePane");
+    // liveChannels and offlineChannels will contain the indeces of the
+    // twitch channels in the array twitchChannels based on their status
     let liveChannels = [];
     let offlineChannels = [];
 
-    for (i=0;i<twitchChannels.length; i++) {
-        let channel = twitchChannels[i];
-        twitchPane.innerHTML = twitchPane.innerHTML + buildChannelBoxHTML(channel.login, channel.profilePic);
+    let token = await getOAUTHToken();
+
+    if (token !== undefined) {
+        await getChannelLiveStatuses(token, getClientID(), liveChannels, offlineChannels);
+        console.log("After call to getChannelLiveStatuses: liveChannels.length: " + liveChannels.length + " | offlineChannels.length: " + offlineChannels.length);
+    }
+    else {
+        // Error retrieving data from Twitch, mark all channels as such
+        console.log("Error receiving OAUTH token from Twitch");
+        for (i=0;i<twitchChannels.length; i++) {
+            let channel = twitchChannels[i];
+            twitchPane.innerHTML = twitchPane.innerHTML + buildChannelBoxHTML(channel.login, channel.profilePic, CHECKING_IMG_PATH);
+        }
+        return;
+    }
+
+    for (i=0;i<liveChannels.length; i++) {
+        let channel = twitchChannels[liveChannels[i]];
+        twitchPane.innerHTML = twitchPane.innerHTML + buildChannelBoxHTML(channel.login, channel.profilePic, LIVE_IMG_PATH);
+    }
+
+    for (i=0; i < offlineChannels.length; i++) {
+        let channel = twitchChannels[offlineChannels[i]];
+        twitchPane.innerHTML = twitchPane.innerHTML + buildChannelBoxHTML(channel.login, channel.profilePic, OFFLINE_IMG_PATH);
     }
 
 }
@@ -63,14 +90,59 @@ function initTwitchPane() {
 // Sort the streams by live and offline and error, with the order being live->offline->error, with live being topmost, then offline, then error
 // Might be possible to have the icons appear from off screen?
 
-function buildChannelBoxHTML(login, profilePic) {
+function buildChannelBoxHTML(login, profilePic, statusImage) {
     return "<div class=\"twitchChannelBox\" id=\"twitchChannel_" + login + "\">" +
     "<a href=https://www.twitch.tv/" + login + " class=\"imageLink\"><img class=\"twitchIcon\" src=" + profilePic + " >" + 
-    "<img src=\"staticFiles\\checkingIcon.png\" class=liveIndicator id=twitchLiveStatus_" + login + ">" +
+    "<img src=" + statusImage + " class=liveIndicator id=twitchLiveStatus_" + login + ">" +
     "</a>" +
     "</div>";
 }
 
+async function getChannelLiveStatuses(token, clientID, liveChannels, offlineChannels) {
+    let requestURL = "https://api.twitch.tv/helix/streams?";
+
+    for (i = 0; i < twitchChannels.length; i++) {
+        requestURL = requestURL + "user_login=" + twitchChannels[i].login;
+        if (i + 1 !== twitchChannels.length) {
+            requestURL = requestURL + "&";
+        }
+    }
+
+    let response = await fetch(requestURL, {
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Client-Id": clientID
+            },
+            method: "GET"
+        });
+    
+    if (response.ok) {
+        responseJSON = await response.json();
+
+        // check each result in the data array
+        // if response.data is empty, no one is online, and they're already marked as such
+
+        // if response.data is not empty, check each result and mark each channel live accordingly
+
+        // streams are returned sorted by viewcount, can't rely on consistent order
+        for (i = 0; i < twitchChannels.length; i++){
+            let live = false;
+            for (j = 0; j < responseJSON.data.length; j++) {
+                if (responseJSON.data[j].user_login === twitchChannels[i].login) {
+                    liveChannels[liveChannels.length] = i;
+                    live = true;
+                    break;
+                }
+            }
+            if (!live) {
+                offlineChannels[offlineChannels.length] = i;
+            }
+        }
+        console.log("After loops in getChannelLiveStatuses: liveChannels.length: " + liveChannels.length + " | offlineChannels.length: " + offlineChannels.length);
+    }
+}
+
+/*
 async function getChannelLiveStatuses(token, clientID) {
     let requestURL = "https://api.twitch.tv/helix/streams?";
 
@@ -118,18 +190,21 @@ async function getChannelLiveStatuses(token, clientID) {
 
     }
 }
+*/
 
 async function getOAUTHToken() {
     // check if the necesary js file exists
     if (typeof refreshOAUTH === "function") {
         let token = await refreshOAUTH();
-        let clientID = await getClientID();
-        await getChannelLiveStatuses(token, clientID);
+        return token;
+        //let clientID = await getClientID();
+        //await getChannelLiveStatuses(token, clientID);
 
         //let broadcasterID = await getBroadcasterID("revscarecrow", token, clientID);
         //console.log("id is: " + broadcasterID);
     }
     else {
         console.log("necessary .js file missing");
+        return undefined;
     }
 }
