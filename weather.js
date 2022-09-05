@@ -64,28 +64,28 @@ async function getOpenMeteoForecast() {
 
         // may be a way to optimize this later
         if (hourlyData.temperature_2m[hour] !== undefined) {
-            openMeteoPane.innerHTML = openMeteoData.innerHTML + "<div>Temperature: " + hourlyData.temperature_2m[0] + TEMP_UNIT + "</div>";
+            openMeteoPane.innerHTML = openMeteoPane.innerHTML + "<div>Temperature: " + hourlyData.temperature_2m[hour] + TEMP_UNIT + "</div>";
         }
         if (hourlyData.apparent_temperature[hour] !== undefined) {
-            openMeteoPane.innerHTML = openMeteoData.innerHTML + "<div>Feels like: " + hourlyData.apparent_temperature[hour] + TEMP_UNIT + "</div>";
+            openMeteoPane.innerHTML = openMeteoPane.innerHTML + "<div>Feels like: " + hourlyData.apparent_temperature[hour] + TEMP_UNIT + "</div>";
         }
         if (dailyData.temperature_2m_max[0] !== undefined) {
-            openMeteoPane.innerHTML = openMeteoData.innerHTML + "<div> High: " + dailyData.temperature_2m_max[0] + TEMP_UNIT + "</div>";
+            openMeteoPane.innerHTML = openMeteoPane.innerHTML + "<div> High: " + dailyData.temperature_2m_max[0] + TEMP_UNIT + "</div>";
         }
         if (dailyData.temperature_2m_min[0] !== undefined) {
-            openMeteoPane.innerHTML = openMeteoData.innerHTML + "<div> Low: " + dailyData.temperature_2m_min[0] + TEMP_UNIT + "</div>";
+            openMeteoPane.innerHTML = openMeteoPane.innerHTML + "<div> Low: " + dailyData.temperature_2m_min[0] + TEMP_UNIT + "</div>";
         }
         if (hourlyData.rain[hour] > 0) {
-            openMeteoPane.innerHTML = openMeteoData.innerHTML + "<div>Rainfall: " + hourlyData.rain[hour] + " inches</div>";
+            openMeteoPane.innerHTML = openMeteoPane.innerHTML + "<div>Rainfall: " + hourlyData.rain[hour] + " inches</div>";
         }
         if (hourlyData.snowfall[hour] > 0) {
-            openMeteoPane.innerHTML = openMeteoData.innerHTML + "<div>Snowfall: " + hourlyData.snowfall[hour] + " cm</div>";
+            openMeteoPane.innerHTML = openMeteoPane.innerHTML + "<div>Snowfall: " + hourlyData.snowfall[hour] + " cm</div>";
         }
         if (hourlyData.snow_depth[hour] > 0) {
-            openMeteoPane.innerHTML = openMeteoData.innerHTML + "<div>Snowfall: " + hourlyData.snow_depth[hour] + " m</div>";
+            openMeteoPane.innerHTML = openMeteoPane.innerHTML + "<div>Snowfall: " + hourlyData.snow_depth[hour] + " m</div>";
         }
         if (hourlyData.showers[hour] > 0) {
-            openMeteoPane.innerHTML = openMeteoData.innerHTML + "<div>Showers: " + hourlyData.showers[hour] + " inches</div>";
+            openMeteoPane.innerHTML = openMeteoPane.innerHTML + "<div>Showers: " + hourlyData.showers[hour] + " inches</div>";
         }
 
         openMeteoPane.innerHTML = openMeteoPane.innerHTML + "<div>Sunrise: " + new Date(dailyData.sunrise[0]).toLocaleTimeString() + "</div>" +
