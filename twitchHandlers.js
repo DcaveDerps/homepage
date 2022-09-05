@@ -51,41 +51,28 @@ twitchChannels = [
     }
 ];
 
-async function initTwitchPane(noRetry) {
+function buildChannelBoxHTML(login, profilePic, statusImage) {
+    return "<div class=\"twitchChannelBox\" id=\"twitchChannel_" + login + "\">" +
+    "<a href=https://www.twitch.tv/" + login + " class=\"imageLink\"><img class=\"twitchIcon\" src=" + profilePic + " >" + 
+    "<img src=" + statusImage + " class=liveIndicator id=twitchLiveStatus_" + login + ">" +
+    "</a>" +
+    "</div>";
+}
+
+async function refreshChannelLiveStatuses() {
     let twitchPane = document.getElementById("twitchLivePane");
     // liveChannels and offlineChannels will contain the indeces of the
     // twitch channels in the array twitchChannels based on their status
     let liveChannels = [];
     let offlineChannels = [];
 
-    // init the channel boxes so there's no pop-in
-    // check noRetry to ensure channel boxes aren't duplicated due to recursive call
-    if (noRetry !== true) {
-        for (i=0;i<twitchChannels.length; i++) {
-            let channel = twitchChannels[i];
-            twitchPane.innerHTML = twitchPane.innerHTML + buildChannelBoxHTML(channel.login, channel.profilePic, CHECKING_IMG_PATH);
-        }
-    }
-
     let token = await getOAUTHToken();
 
-    if (token !== undefined) {
-        await getChannelLiveStatuses(token, getClientID(), liveChannels, offlineChannels);
-    }
-    else if (noRetry !== true) {
-        // Error retrieving data from Twitch, mark all channels as such
-        console.log("Error: OAUTH token may be uninitialized. Resetting and trying again...");
-        await getOAUTHToken(true);
-        initTwitchPane(true);
-        return;
-    }
-    else {
-        console.log("protectedScripts.js is missing!");
-        return;
-    }
+    // getChannelLiveStatuses handles if token is expired
+    await getChannelLiveStatuses(token, getClientID(), liveChannels, offlineChannels);
 
     // reset the innerHTML to be replaced with
-    // the results from the Twitch request
+    // the results from the Twitch API request
     twitchPane.innerHTML = "";
 
     for (i=0;i<liveChannels.length; i++) {
@@ -100,12 +87,23 @@ async function initTwitchPane(noRetry) {
 
 }
 
-function buildChannelBoxHTML(login, profilePic, statusImage) {
-    return "<div class=\"twitchChannelBox\" id=\"twitchChannel_" + login + "\">" +
-    "<a href=https://www.twitch.tv/" + login + " class=\"imageLink\"><img class=\"twitchIcon\" src=" + profilePic + " >" + 
-    "<img src=" + statusImage + " class=liveIndicator id=twitchLiveStatus_" + login + ">" +
-    "</a>" +
-    "</div>";
+async function initTwitchPane() {
+    let twitchPane = document.getElementById("twitchLivePane");
+
+    // init the channel boxes so there's no pop-in upon the Twitch API response
+    // check noRetry to ensure channel boxes aren't duplicated due to recursive call
+    if (noRetry !== true) {
+        for (i=0;i<twitchChannels.length; i++) {
+            let channel = twitchChannels[i];
+            twitchPane.innerHTML = twitchPane.innerHTML + buildChannelBoxHTML(channel.login, channel.profilePic, CHECKING_IMG_PATH);
+        }
+    }
+    // check if OAUTH token is initialized in local storage
+    let token = await getOAUTHToken();
+
+    if (token !== undefined) {
+        await refreshChannelLiveStatuses();
+    }
 }
 
 async function getChannelLiveStatuses(token, clientID, liveChannels, offlineChannels, noRetry) {
@@ -161,7 +159,7 @@ async function getChannelLiveStatuses(token, clientID, liveChannels, offlineChan
 async function getOAUTHToken(forceReset) {
     // check if the necesary js file exists
     if (typeof resetOAUTH === "function") {
-        if (forceReset) {
+        if (forceReset || localStorage["OAUTHToken"] === undefined) {
             let token = await resetOAUTH();
             localStorage["OAUTHToken"] = token;
             return token;
@@ -176,7 +174,7 @@ async function getOAUTHToken(forceReset) {
         //console.log("id is: " + broadcasterID);
     }
     else {
-        console.log("necessary .js file is missing");
+        console.log("necessary protectedScripts.js file is missing");
         return undefined;
     }
 }
