@@ -58,6 +58,12 @@ async function initTwitchPane() {
     let liveChannels = [];
     let offlineChannels = [];
 
+    // init the channels
+    for (i=0;i<twitchChannels.length; i++) {
+        let channel = twitchChannels[i];
+        twitchPane.innerHTML = twitchPane.innerHTML + buildChannelBoxHTML(channel.login, channel.profilePic, CHECKING_IMG_PATH);
+    }
+
     let token = await getOAUTHToken();
 
     if (token !== undefined) {
@@ -67,12 +73,12 @@ async function initTwitchPane() {
     else {
         // Error retrieving data from Twitch, mark all channels as such
         console.log("Error receiving OAUTH token from Twitch");
-        for (i=0;i<twitchChannels.length; i++) {
-            let channel = twitchChannels[i];
-            twitchPane.innerHTML = twitchPane.innerHTML + buildChannelBoxHTML(channel.login, channel.profilePic, CHECKING_IMG_PATH);
-        }
         return;
     }
+
+    // reset the innerHTML to be replaced with
+    // the results from the Twitch request
+    twitchPane.innerHTML = "";
 
     for (i=0;i<liveChannels.length; i++) {
         let channel = twitchChannels[liveChannels[i]];
