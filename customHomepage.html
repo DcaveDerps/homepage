@@ -6,7 +6,7 @@
         <h1>Custom Homepage</h1>
     </head>
     <body>
-        <script src="refreshOAUTH.js"></script>
+        <script src="protectedScripts.js"></script>
         <script src="twitchHandlers.js"></script>
         <script src="search.js"></script>
         <script src="weather.js"></script>
@@ -43,6 +43,12 @@
         </div>
         
         <script>
+
+            // maybe look into having a WebWorker for each
+            // pane that needs to make API calls
+
+            // That may allow for API calls to resolve a bit
+            // quicker
 
             // WEATHER
 

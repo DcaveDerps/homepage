@@ -1,7 +1,7 @@
 @keyframes twitchChannelBoxSlideIn {
     0% {transform: translateX(90%);}
     15% {transform: translateX(90%)}
-    100% {transfom: translateX(0%);}
+    100% {transform: translateX(0%);}
 }
 
 #rightPane {
@@ -17,7 +17,7 @@
     width: 100%;
     align-items: flex-end;
     animation-name: twitchChannelBoxSlideIn;
-    animation-duration: 1.4s;
+    animation-duration: 0.9s;
     animation-delay: 0.0s;
     animation-timing-function: ease-out;
 }
