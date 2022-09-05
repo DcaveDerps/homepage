@@ -68,6 +68,9 @@ async function refreshChannelLiveStatuses() {
 
     let token = await getOAUTHToken();
 
+    // if protectedScripts.js doesn't exist, don't try to update
+    if (token === undefined) { return; }
+
     // getChannelLiveStatuses handles if token is expired
     await getChannelLiveStatuses(token, getClientID(), liveChannels, offlineChannels);
 
@@ -91,12 +94,9 @@ async function initTwitchPane() {
     let twitchPane = document.getElementById("twitchLivePane");
 
     // init the channel boxes so there's no pop-in upon the Twitch API response
-    // check noRetry to ensure channel boxes aren't duplicated due to recursive call
-    if (noRetry !== true) {
-        for (i=0;i<twitchChannels.length; i++) {
-            let channel = twitchChannels[i];
-            twitchPane.innerHTML = twitchPane.innerHTML + buildChannelBoxHTML(channel.login, channel.profilePic, CHECKING_IMG_PATH);
-        }
+    for (i=0;i<twitchChannels.length; i++) {
+        let channel = twitchChannels[i];
+        twitchPane.innerHTML = twitchPane.innerHTML + buildChannelBoxHTML(channel.login, channel.profilePic, CHECKING_IMG_PATH);
     }
     // check if OAUTH token is initialized in local storage
     let token = await getOAUTHToken();
