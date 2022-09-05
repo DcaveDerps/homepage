@@ -72,6 +72,13 @@
     align-items: center;
 }
 
+#weatherPane {
+    display: flex;
+    height: 50%;
+    justify-content: center;
+    align-content: center;
+}
+
 .twitchChannelBox {
     position: relative;
     display: flex;
@@ -108,4 +115,9 @@
     left: 45px;
     width: 24px;
     height: 24px;
+}
+
+.forecastPanel {
+    width: 20%;
+    height: 100%;
 }

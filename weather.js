@@ -1,5 +1,5 @@
 // Weather.gov API
-const TEMP_UNIT = " °F"
+const TEMP_UNIT = " °F";
 
 function formatForecast(forecastStr) {
     let lines = forecastStr.split(". ");
@@ -11,6 +11,18 @@ function formatForecast(forecastStr) {
         }
     }
     return output;
+}
+
+function initWeatherGov() {
+    let weatherPaneHTML = document.getElementById("weatherPane");
+
+    weatherPaneHTML.innerHTML = weatherPaneHTML.innerHTML + "<div id=\"weatherGov\" class=\"forecastPanel\">" +
+    "<img id=\"forecastImg\" alt=\"forecast thumbnail\">" +
+    "<br>" +
+    "<div id=\"weatherGovTemp\"></div>" +
+    "<br>" +
+    "<div id=\"weatherGovForecast\"></div>" +
+    "</div>";
 }
 
 async function getWeatherGovForecast() {
@@ -32,7 +44,7 @@ async function getWeatherGovForecast() {
 function initOpenMeteo() {
     let weatherPaneHTML = document.getElementById("weatherPane");
 
-    weatherPaneHTML.innerHTML = weatherPaneHTML.innerHTML + "<div id=\"openMeteo\">OpenMeteo Report<br></div>";
+    weatherPaneHTML.innerHTML = weatherPaneHTML.innerHTML + "<div id=\"openMeteo\" class=\"forecastPanel\"></div>";
 
 }
 
@@ -48,11 +60,21 @@ async function getOpenMeteoForecast() {
         let hourlyData = openMeteoResponse.hourly;
         let dailyData = openMeteoResponse.daily;
 
-        openMeteoPane.innerHTML = openMeteoPane.innerHTML + "<div>Temperature: " + hourlyData.temperature_2m[0] + TEMP_UNIT + "</div>" +
-        "<div>Feels like: " + hourlyData.apparent_temperature[hour] + TEMP_UNIT + "</div>" + 
-        "<div> High: " + dailyData.temperature_2m_max[0] + TEMP_UNIT + "</div>" +
-        "<div> Low: " + dailyData.temperature_2m_min[0] + TEMP_UNIT + "</div>";
+        openMeteoPane.innerHTML = openMeteoPane.innerHTML + "OpenMeteo Report<br>";
 
+        // may be a way to optimize this later
+        if (hourlyData.temperature_2m[hour] !== undefined) {
+            openMeteoPane.innerHTML = openMeteoData.innerHTML + "<div>Temperature: " + hourlyData.temperature_2m[0] + TEMP_UNIT + "</div>";
+        }
+        if (hourlyData.apparent_temperature[hour] !== undefined) {
+            openMeteoPane.innerHTML = openMeteoData.innerHTML + "<div>Feels like: " + hourlyData.apparent_temperature[hour] + TEMP_UNIT + "</div>";
+        }
+        if (dailyData.temperature_2m_max[0] !== undefined) {
+            openMeteoPane.innerHTML = openMeteoData.innerHTML + "<div> High: " + dailyData.temperature_2m_max[0] + TEMP_UNIT + "</div>";
+        }
+        if (dailyData.temperature_2m_min[0] !== undefined) {
+            openMeteoPane.innerHTML = openMeteoData.innerHTML + "<div> Low: " + dailyData.temperature_2m_min[0] + TEMP_UNIT + "</div>";
+        }
         if (hourlyData.rain[hour] > 0) {
             openMeteoPane.innerHTML = openMeteoData.innerHTML + "<div>Rainfall: " + hourlyData.rain[hour] + " inches</div>";
         }
@@ -77,7 +99,10 @@ async function getOpenMeteoForecast() {
 }
 
 function initWeatherPane() {
+    initWeatherGov();
     initOpenMeteo();
+
+    getWeatherForecasts();
 }
 
 async function getWeatherForecasts() {
