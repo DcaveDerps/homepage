@@ -49,17 +49,26 @@ twitchChannels = [
 
 function initTwitchPane() {
     let twitchPane = document.getElementById("twitchLivePane");
+    let liveChannels = [];
+    let offlineChannels = [];
 
     for (i=0;i<twitchChannels.length; i++) {
         let channel = twitchChannels[i];
-        twitchPane.innerHTML = twitchPane.innerHTML +
-        "<div class=\"twitchChannelBox\" id=\"twitchChannel" + i + "\">" +
-        "<a href=https://www.twitch.tv/" + channel.login + " class=\"imageLink\"><img class=\"twitchIcon\" src=" + channel.profilePic + " >" + 
-        "<img src=\"staticFiles\\checkingIcon.png\" class=liveIndicator id=twitchLiveStatus_" + channel.login + ">" +
-        "</a>" +
-        "</div>";
+        twitchPane.innerHTML = twitchPane.innerHTML + buildChannelBoxHTML(channel.login, channel.profilePic);
     }
 
+}
+
+// TODO:
+// Sort the streams by live and offline and error, with the order being live->offline->error, with live being topmost, then offline, then error
+// Might be possible to have the icons appear from off screen?
+
+function buildChannelBoxHTML(login, profilePic) {
+    return "<div class=\"twitchChannelBox\" id=\"twitchChannel_" + login + "\">" +
+    "<a href=https://www.twitch.tv/" + login + " class=\"imageLink\"><img class=\"twitchIcon\" src=" + profilePic + " >" + 
+    "<img src=\"staticFiles\\checkingIcon.png\" class=liveIndicator id=twitchLiveStatus_" + login + ">" +
+    "</a>" +
+    "</div>";
 }
 
 async function getChannelLiveStatuses(token, clientID) {
@@ -108,25 +117,19 @@ async function getChannelLiveStatuses(token, clientID) {
 
 
     }
+}
 
-    /*for(i=0; i<twitchChannels.length; i++) {
-        let response = await fetch("https://api.twitch.tv/helix/streams?user_login=" + twitchChannels[i].login, {
-            headers: {
-                "Authorization": "Bearer " + token,
-                "Client-Id": clientID
-            },
-            method: "GET"
-        });
+async function getOAUTHToken() {
+    // check if the necesary js file exists
+    if (typeof refreshOAUTH === "function") {
+        let token = await refreshOAUTH();
+        let clientID = await getClientID();
+        await getChannelLiveStatuses(token, clientID);
 
-        if (response.ok) {
-            responseJSON = await response.json();
-            if ( typeof responseJSON.data[0] !== 'undefined') {
-                document.getElementById("twitchLiveStatus" + i).src = "staticFiles\\liveIcon.png";
-            }
-            else {
-                document.getElementById("twitchLiveStatus" + i).src = "staticFiles\\offlineIcon.png";
-            }
-        }
+        //let broadcasterID = await getBroadcasterID("revscarecrow", token, clientID);
+        //console.log("id is: " + broadcasterID);
     }
-    */
+    else {
+        console.log("necessary .js file missing");
+    }
 }

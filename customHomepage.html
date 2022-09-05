@@ -52,20 +52,6 @@
             
             initTwitchPane();
 
-            async function getOAUTHToken() {
-                // check if the necesary js file exists
-                if (typeof refreshOAUTH === "function") {
-                    let token = await refreshOAUTH();
-                    let clientID = await getClientID();
-                    await getChannelLiveStatuses(token, clientID);
-
-                    //let broadcasterID = await getBroadcasterID("revscarecrow", token, clientID);
-                    //console.log("id is: " + broadcasterID);
-                }
-                else {
-                    console.log("necessary .js file missing");
-                }
-            }
             getOAUTHToken();
 
         </script>
