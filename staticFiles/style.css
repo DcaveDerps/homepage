@@ -10,6 +10,17 @@
     100% {transform: translateX(0%);}
 }
 
+@keyframes fadeIn {
+    0% {opacity: 0%;}
+    100% {opacity: 100%}
+}
+
+@keyframes fadeInRainOverlayImg {
+    0% {opacity: 0%;}
+    20% {opacity: 0%}
+    100% {opacity: 50%}
+}
+
 #rightPane {
     display: flex;
     width: 10%;
@@ -88,6 +99,7 @@
     position: relative;
     width: fit-content;
     height: fit-content;
+    border: 5px solid lightblue;
 }
 
 .twitchChannelBox {
@@ -138,4 +150,7 @@
     opacity:50%;
     width: 225px;
     height: 225px;
+    animation-name: fadeInRainOverlayImg;
+    animation-duration: 0.9s;
+    animation-delay: 0.0s;
 }

@@ -127,8 +127,8 @@ async function getRainViewerMapData() {
     imgCoords = ["/283/385","/284/385","/283/386","/284/386"];
     imgs = [];
 
-    for (i = 0; i < imgCoords.length; i++) {
-        let requestURL = rainViewerDataJSON.host + rainViewerDataJSON.radar.past[12].path + "/256/10" + imgCoords[i] + "/8/1_1.png";
+    for (k = 0; k < imgCoords.length; k++) {
+        let requestURL = rainViewerDataJSON.host + rainViewerDataJSON.radar.past[12].path + "/256/10" + imgCoords[k] + "/8/1_1.png";
         console.log("rainViewer API URL: " + requestURL);
 
         img = await fetch(requestURL);
