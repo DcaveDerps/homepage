@@ -79,6 +79,17 @@
     align-content: center;
 }
 
+#mapUnderlay {
+    display: flex;
+}
+
+#rainMapContainer {
+    display: flex;
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+}
+
 .twitchChannelBox {
     position: relative;
     display: flex;
