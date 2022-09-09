@@ -132,3 +132,10 @@
     width: 20%;
     height: 100%;
 }
+
+.rainOverlayImg {
+    position:absolute;
+    opacity:50%;
+    width: 225px;
+    height: 225px;
+}

@@ -154,10 +154,10 @@ function assembleRainRadarImg(imgs) {
 
     let rainViewerPaneHTML = document.getElementById("rainMapContainer");
 
-    rainViewerPaneHTML.innerHTML = rainViewerPaneHTML.innerHTML + "<img src=\"" + imgs[0] + "\" style=\"position:absolute; opacity:50%; top:0px;\" width=\"225\" height=\"225\">";
-    rainViewerPaneHTML.innerHTML = rainViewerPaneHTML.innerHTML + "<img src=\"" + imgs[1] + "\" style=\"position:absolute; opacity:50%; top:0px; left:225px;\" width=\"225\" height=\"225\">";
-    rainViewerPaneHTML.innerHTML = rainViewerPaneHTML.innerHTML + "<img src=\"" + imgs[2] + "\" style=\"position:absolute; opacity:50%; top:225px;\" width=\"225\" height=\"225\">";
-    rainViewerPaneHTML.innerHTML = rainViewerPaneHTML.innerHTML + "<img src=\"" + imgs[3] + "\" style=\"position:absolute; opacity:50%; top:225px; left:225px;\" width=\"225\" height=\"225\">";
+    rainViewerPaneHTML.innerHTML = rainViewerPaneHTML.innerHTML + "<img src=\"" + imgs[0] + "\" class=\"rainOverlayImg\" style=\"top:0px;\">";
+    rainViewerPaneHTML.innerHTML = rainViewerPaneHTML.innerHTML + "<img src=\"" + imgs[1] + "\" class=\"rainOverlayImg\" style=\"top:0px; left:225px;\">";
+    rainViewerPaneHTML.innerHTML = rainViewerPaneHTML.innerHTML + "<img src=\"" + imgs[2] + "\" class=\"rainOverlayImg\" style=\"top:225px;\">";
+    rainViewerPaneHTML.innerHTML = rainViewerPaneHTML.innerHTML + "<img src=\"" + imgs[3] + "\" class=\"rainOverlayImg\" style=\"top:225px; left:225px;\">";
 
 }
 
