@@ -15,7 +15,7 @@
     100% {opacity: 100%}
 }
 
-@keyframes fadeInRainOverlayImg {
+@keyframes fadeInDelayed {
     0% {opacity: 0%;}
     20% {opacity: 0%}
     100% {opacity: 50%}
@@ -147,6 +147,7 @@
 .forecastPanel {
     width: 100%;
     height: 100%;
+
     background-color:rgb(54, 73, 99);
     font-size: medium;
     color: white;
@@ -160,7 +161,7 @@
     opacity:50%;
     width: 225px;
     height: 225px;
-    animation-name: fadeInRainOverlayImg;
+    animation-name: fadeInDelayed;
     animation-duration: 0.9s;
     animation-delay: 0.0s;
 }
@@ -178,4 +179,8 @@
 .fitInside {
     width: fit-content;
     height: fit-content;
+}
+
+.absolutePos {
+    position:absolute;
 }
