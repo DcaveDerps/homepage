@@ -14,10 +14,10 @@ function formatForecast(forecastStr) {
 }
 
 function initWeatherGov() {
-    let weatherPaneHTML = document.getElementById("weatherPane");
+    let weatherPaneHTML = document.getElementById("forecastPaneCurrent");
 
     weatherPaneHTML.innerHTML = weatherPaneHTML.innerHTML + "<div id=\"weatherGov\" class=\"forecastPanel\">" +
-    "<img id=\"forecastImg\" alt=\"forecast thumbnail\">" +
+    "<div class=\"centeredHorizontal\"><img id=\"forecastImg\" alt=\"forecast thumbnail\"></div>" +
     "<br>" +
     "<div id=\"weatherGovTemp\"></div>" +
     "<br>" +
@@ -45,7 +45,7 @@ async function getWeatherGovForecast() {
 // Open Weather API
 
 function initOpenMeteo() {
-    let weatherPaneHTML = document.getElementById("weatherPane");
+    let weatherPaneHTML = document.getElementById("forecastPaneCurrent");
 
     weatherPaneHTML.innerHTML = weatherPaneHTML.innerHTML + "<div id=\"openMeteo\" class=\"forecastPanel\"></div>";
 
@@ -63,7 +63,7 @@ async function getOpenMeteoForecast() {
         let hourlyData = openMeteoResponse.hourly;
         let dailyData = openMeteoResponse.daily;
 
-        openMeteoPane.innerHTML = openMeteoPane.innerHTML + "OpenMeteo Report<br>";
+        openMeteoPane.innerHTML = openMeteoPane.innerHTML + "<div class=\"centeredHorizontal\" style=\"font-size:large;\">OpenMeteo Report</div><br>";
 
         // may be a way to optimize this later
         if (hourlyData.temperature_2m[hour] !== undefined) {
@@ -106,7 +106,7 @@ async function getOpenMeteoForecast() {
 function initRainViewer() {
     let weatherPaneHTML = document.getElementById("weatherPane");
 
-    weatherPaneHTML.innerHTML = weatherPaneHTML.innerHTML + "<div id=\"rainViewer\" class=\"forecastPanel\">" +
+    weatherPaneHTML.innerHTML = weatherPaneHTML.innerHTML + "<div id=\"rainViewer\">" +
     "<a id = \"rainMapContainer\">" +
     "<img id=\"rainMapUnderlay\" src=\"staticFiles\\openStreetMapAll.png\" width=\"450\" height=\"450\">" +
     "</a>" +

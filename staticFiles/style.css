@@ -90,6 +90,8 @@
     align-content: center;
 }
 
+
+
 #mapUnderlay {
     display: flex;
 }
@@ -141,8 +143,14 @@
 }
 
 .forecastPanel {
-    width: 20%;
+    width: 100%;
     height: 100%;
+    background-color:rgb(107, 143, 179);
+    font-size: medium;
+    color: white;
+    margin-bottom: 8px;
+    padding: 4px;
+    border: 2px solid lightblue;
 }
 
 .rainOverlayImg {
@@ -153,4 +161,14 @@
     animation-name: fadeInRainOverlayImg;
     animation-duration: 0.9s;
     animation-delay: 0.0s;
+}
+
+.centeredHorizontal {
+    display: flex;
+    justify-content: center;
+}
+
+.centeredVertical {
+    display: flex;
+    align-items: center;
 }
