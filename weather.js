@@ -159,7 +159,7 @@ function assembleRainRadarImg(imgs) {
     rainViewerPaneHTML.innerHTML = rainViewerPaneHTML.innerHTML + "<img src=\"" + imgs[2] + "\" class=\"rainOverlayImg\" style=\"top:225px;\">";
     rainViewerPaneHTML.innerHTML = rainViewerPaneHTML.innerHTML + "<img src=\"" + imgs[3] + "\" class=\"rainOverlayImg\" style=\"top:225px; left:225px;\">";
     rainViewerPaneHTML.innerHTML = rainViewerPaneHTML.innerHTML + "<a href=\"https://www.openstreetmap.org/copyright\" style=\"position: absolute; top:96%; left:55.5%;\">© OpenStreetMap contributors</a>";
-
+    rainViewerPaneHTML.innerHTML = rainViewerPaneHTML.innerHTML + "<a href=\"https://www.rainviewer.com/api.html\" style=\"position: absolute; top:96%; left:0.5%;\">Rain data via RainViewer</a>";
 }
 
 function initWeatherPane() {
