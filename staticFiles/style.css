@@ -90,7 +90,9 @@
     align-content: center;
 }
 
-
+#forecastPaneCurrent {
+    margin-right: 16px;
+}
 
 #mapUnderlay {
     display: flex;
@@ -101,7 +103,7 @@
     position: relative;
     width: fit-content;
     height: fit-content;
-    border: 5px solid lightblue;
+    border: 5px solid rgb(107, 143, 179);
 }
 
 .twitchChannelBox {
@@ -145,12 +147,12 @@
 .forecastPanel {
     width: 100%;
     height: 100%;
-    background-color:rgb(107, 143, 179);
+    background-color:rgb(54, 73, 99);
     font-size: medium;
     color: white;
     margin-bottom: 8px;
     padding: 4px;
-    border: 2px solid lightblue;
+    border: 5px solid rgb(107, 143, 179);
 }
 
 .rainOverlayImg {
@@ -171,4 +173,9 @@
 .centeredVertical {
     display: flex;
     align-items: center;
+}
+
+.fitInside {
+    width: fit-content;
+    height: fit-content;
 }

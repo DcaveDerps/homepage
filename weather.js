@@ -106,7 +106,7 @@ async function getOpenMeteoForecast() {
 function initRainViewer() {
     let weatherPaneHTML = document.getElementById("weatherPane");
 
-    weatherPaneHTML.innerHTML = weatherPaneHTML.innerHTML + "<div id=\"rainViewer\">" +
+    weatherPaneHTML.innerHTML = weatherPaneHTML.innerHTML + "<div id=\"rainViewer\" class=\"fitInside\">" +
     "<a id = \"rainMapContainer\">" +
     "<img id=\"rainMapUnderlay\" src=\"staticFiles\\openStreetMapAll.png\" width=\"450\" height=\"450\">" +
     "</a>" +
