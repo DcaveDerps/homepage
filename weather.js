@@ -161,6 +161,9 @@ function assembleRainRadarImg(imgs) {
 }
 
 function initWeatherPane() {
+
+    document.getElementById("weatherPane").innerHTML = "<div id=\"forecastPaneCurrent\" class=\"verticalList centeredVertical\"></div>";
+
     initWeatherGov();
     initOpenMeteo();
     initRainViewer();

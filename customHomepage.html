@@ -7,6 +7,7 @@
     </head>
     <body>
         <script src="protectedScripts.js"></script>
+        <script src="swapWidget.js"></script>
         <script src="twitchHandlers.js"></script>
         <script src="search.js"></script>
         <script src="weather.js"></script>
@@ -27,12 +28,12 @@
 
                 <div id="swappableWidget">
                     <div id="weatherPane">
-                        <div id="forecastPaneCurrent" class="verticalList centeredVertical"></div>
+                        <!--<div id="forecastPaneCurrent" class="verticalList centeredVertical"></div>-->
                     </div>
                 </div>
 
                 <div id="widgetSelectionBar" class="horizontalList centeredHorizontal">
-                    <img src="staticFiles\weatherWidgetIcon.png" width="64" height="64">
+                    <img src="staticFiles\weatherWidgetIcon.png" width="64" height="64" onclick="swapToWeather()">
                     <img src="staticFiles\itchioWidgetIcon.png" width="64" height="64">
                     <img src="staticFiles\commandsWidgetIcon.png" width="64" height="64">
                 </div>
@@ -55,7 +56,8 @@
 
             // WEATHER
 
-            initWeatherPane();
+            //initWeatherPane();
+            swapToWeather();
 
             // TWITCH
             
