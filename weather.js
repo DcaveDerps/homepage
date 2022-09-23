@@ -146,8 +146,6 @@ async function getRainViewerMapData() {
 
 }
 
-// add attributions to RainViewer and OpenStreetMap (© OpenStreetMap contributors) https://www.openstreetmap.org/copyright
-
 function assembleRainRadarImg(imgs) {
 
     console.log("in assembleRainRadarImg");
