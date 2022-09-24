@@ -13,6 +13,47 @@ function initCommandsPane() {
 }
 
 function absToRelCoords(){
-    let command = document.getElementById("commandInputBox");
+    let command = document.getElementById("commandInputBox").textContent;
+
+    // test command
+    command = "/fill -20 2 5 50 4 5 minecraft:iron_block";
+
+    let coordTuplePattern = new RegExp(/-?\d+\.?\d*\s-?\d+\.?\d*\s-?\d+\.?\d*/, 'g')
+
+    // find all of the coord tuples
+    let tuples = command.matchAll(coordTuplePattern);
+
+    console.log("found matches:");
+
+    // convert the tuples to relative coords
+    let curMatch = tuples.next();
+    while (!curMatch.done) {
+        console.log(curMatch.value);
+        console.log(absTupleToRelCoords(curMatch.value[0]));
+        if (typeof(absTupleToRelCoords(curMatch.value[0])) === typeof(undefined)) {
+            return;
+        }
+        curMatch = tuples.next();
+    }
+
+}
+
+function absTupleToRelCoords(tupleString) {
+    let blockX = Number(document.getElementById("xCoord").value);
+    let blockY = Number(document.getElementById("yCoord").value);
+    let blockZ = Number(document.getElementById("zCoord").value);
+
+    // ADD ERROR CHECKING
+    if (isNaN(blockX) || isNaN(blockY) || isNaN(blockZ)) {
+        return undefined;
+    }
+
+    let coords = tupleString.split(" ");
+    for (let i = 0; i < coords.length; i++) {
+        coords[i] = Number(coords[i]);
+    }
+    console.log(coords);
+
+    return "~" + (coords[0] - blockX) + " ~" + (coords[1] - blockY) + " ~" + (coords[2] - blockZ);
 
 }
