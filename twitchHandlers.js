@@ -160,9 +160,9 @@ async function getChannelLiveStatuses(token, clientID, liveChannels, offlineChan
 
 async function getOAUTHToken(forceReset) {
     // check if the necesary js file exists
-    if (typeof resetOAUTH === "function") {
+    if (typeof resetTwitchOAUTH === "function") {
         if (forceReset || localStorage["OAUTHToken"] === undefined) {
-            let token = await resetOAUTH();
+            let token = await resetTwitchOAUTH();
             localStorage["OAUTHToken"] = token;
             return token;
         }

@@ -121,6 +121,23 @@
     border: 5px solid rgb(107, 143, 179);
 }
 
+#commandInputBox {
+    width: 80%;
+    height: 40%;
+}
+
+#coordsBox {
+    display: flex;
+    width: 34%;
+    justify-content: space-between;
+}
+
+.commandUIBox {
+    background-color: bisque;
+    border: 4px solid chocolate;
+    resize: none;
+}
+
 .twitchChannelBox {
     position: relative;
     display: flex;
@@ -190,6 +207,7 @@
 
 .centeredVertical {
     display: flex;
+    flex-direction: column;
     align-items: center;
 }
 

@@ -11,3 +11,10 @@ function swapToWeather() {
         currentWidget = 0;
     }
 }
+
+function swapToCommands() {
+    if(currentWidget != 1) {
+        swapWidget("commandsPane", initCommandsPane);
+        currentWidget = 1;
+    }
+}

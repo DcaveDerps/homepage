@@ -9,6 +9,8 @@
         <script src="protectedScripts.js"></script>
         <script src="swapWidget.js"></script>
         <script src="twitchHandlers.js"></script>
+        <script src="itchioHandler.js"></script>
+        <script src="minecraftCommandHandler.js"></script>
         <script src="search.js"></script>
         <script src="weather.js"></script>
 
@@ -34,8 +36,8 @@
 
                 <div id="widgetSelectionBar" class="horizontalList centeredHorizontal">
                     <img src="staticFiles\weatherWidgetIcon.png" width="64" height="64" onclick="swapToWeather()">
-                    <img src="staticFiles\itchioWidgetIcon.png" width="64" height="64">
-                    <img src="staticFiles\commandsWidgetIcon.png" width="64" height="64">
+                    <a href="https://itch.io/"><img src="staticFiles\itchioWidgetIcon.png" width="64" height="64"></a>
+                    <img src="staticFiles\commandsWidgetIcon.png" width="64" height="64" onclick="swapToCommands()">
                 </div>
 
             </div>
@@ -62,6 +64,9 @@
             // TWITCH
             
             initTwitchPane();
+
+            // ITCHIO
+            //initItchioPane();
 
         </script>
     </body>
