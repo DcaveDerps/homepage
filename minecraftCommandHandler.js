@@ -18,10 +18,13 @@ function absToRelCoords(){
     // test command
     command = "/fill -20 2 5 50 4 5 minecraft:iron_block";
 
-    let coordTuplePattern = new RegExp(/-?\d+\.?\d*\s-?\d+\.?\d*\s-?\d+\.?\d*/, 'g')
+    console.log("original: " + command);
 
+    let coordTuplePattern = new RegExp(/-?\d+\.?\d*\s-?\d+\.?\d*\s-?\d+\.?\d*/, 'g')
+    let coordTuplePatternOnce = new RegExp(/-?\d+\.?\d*\s-?\d+\.?\d*\s-?\d+\.?\d*/);
     // find all of the coord tuples
     let tuples = command.matchAll(coordTuplePattern);
+    command = command.replace(coordTuplePattern, "tup");
 
     console.log("found matches:");
 
@@ -29,12 +32,20 @@ function absToRelCoords(){
     let curMatch = tuples.next();
     while (!curMatch.done) {
         console.log(curMatch.value);
-        console.log(absTupleToRelCoords(curMatch.value[0]));
-        if (typeof(absTupleToRelCoords(curMatch.value[0])) === typeof(undefined)) {
+        let relTuple = absTupleToRelCoords(curMatch.value[0]);
+        console.log(relTuple);
+        if (typeof(relTuple) === typeof(undefined)) {
             return;
+        }
+        else {
+            console.log("before replace: " + command);
+            command = command.replace("tup", relTuple);
+            console.log("after replace: " + command);
         }
         curMatch = tuples.next();
     }
+
+    console.log(command);
 
 }
 
