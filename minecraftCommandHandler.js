@@ -8,15 +8,15 @@ function initCommandsPane() {
     "<textarea class=\"commandUIBox\" rows=\"1\" cols=\"7\" id=\"zCoord\" placeholder=\"Z coord\"></textarea>" +
     "</div>" +
     "<button id=\"commandSubmitButton\" onclick=\"absToRelCoords()\">Convert</button>" +
-    "<div id=\"commandOutputBox\"></div>" +
+    "<div id=\"commandOutputBox\" class=\"centeredVertical\"></div>" +
     "</div>";
 }
 
 function absToRelCoords(){
-    let command = document.getElementById("commandInputBox").textContent;
+    let command = document.getElementById("commandInputBox").value;
 
     // test command
-    command = "/fill -20 2 5 50 4 5 minecraft:iron_block";
+    //command = "/fill -20 2 5 50 4 5 minecraft:iron_block";
 
     console.log("original: " + command);
 
@@ -47,6 +47,8 @@ function absToRelCoords(){
 
     console.log(command);
 
+    appendOutput(command);
+
 }
 
 function absTupleToRelCoords(tupleString) {
@@ -67,4 +69,18 @@ function absTupleToRelCoords(tupleString) {
 
     return "~" + (coords[0] - blockX) + " ~" + (coords[1] - blockY) + " ~" + (coords[2] - blockZ);
 
+}
+
+function appendOutput(command) {
+    document.getElementById("commandOutputBox").innerHTML += "<div class=\"horizontalList\">" +
+    "<div class=\"commandOutput\">" + command + "</div>" +
+    "<button onclick=\"copyCommandToClipboard(this)\">Copy</button>"
+    "</div>";
+}
+
+function copyCommandToClipboard(button) {
+    let parent = button.parentElement;
+    let text = parent.querySelector(".commandOutput").textContent;
+
+    navigator.clipboard.writeText(text);
 }
